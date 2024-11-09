@@ -157,7 +157,7 @@ def kick_down_door():
             return ()
         print("the lich returns to the battle, though he is still injured from earlier")
         monster_hp = 20
-        monster_dm = 51
+        monster_dm = 5
         monster_name = "the wounded lich"
         monster_attack()
         looting()

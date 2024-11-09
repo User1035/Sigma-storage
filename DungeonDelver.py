@@ -1,4 +1,6 @@
 import random
+from typing import Final
+
 monster_hp = 0
 ran_loot = 0
 rock_has = 0
@@ -6,6 +8,9 @@ encounter = 0
 spare_food = 0
 monster_dm = 0
 
+BOW: Final[int] = 1
+SWORD: Final[int] = 2
+AXE: Final[int] = 3
 
 def kick_down_door():
     #IF SPAM GO!
@@ -279,24 +284,24 @@ while running == 1:
     monster_name = 0
     weapon = int(input("please select your starting weapon, 1 for a bow, 2 for a sword, 3 for an axe"))
 #selects starting weapon, and is stored as an integer
-    if weapon == 3:
+    if weapon == AXE:
         weapon_dur = random.randint(4, 6)
         weapon_dam = 5
-    elif weapon == 2:
+    elif weapon == SWORD:
         weapon_dur = random.randint(7, 9)
         weapon_dam = 4
-    elif weapon == 1:
+    elif weapon == BOW:
         weapon_dur = random.randint(2, 4)
         weapon_dam = 6
-    else:
+    else:   # what kind of weapon is this???
         weapon_dur = 0
         weapon_dam = 1
 #basic code that assigns base characteristics based on the weapon
-    if weapon == 1:
+    if weapon == BOW:
         print("You enter the dungeon with 30 health and walk into the first room, bow gripped tight in your hand")
-    elif weapon == 2:
+    elif weapon == SWORD:
         print("You enter the dungeon with 30 health and walk into the first room, your trusty blade held tight")
-    elif weapon == 3:
+    elif weapon == AXE:
         print("You enter the dungeon with 30 health and walk into the first room, gripping the handle of your axe")
     else:
         print("You enter the dungeon and with 30 health walk into the first room, shaking as you walk unarmed")

@@ -75,6 +75,7 @@ def kick_down_door():
         str(input("what is your quest"))
         str(input("what is your favorite colour"))
         print("Right, off you go")
+        looting()
     elif encounter == 9:
         print("COMBAT!")
         monster_name = "the giant golem"
@@ -101,10 +102,16 @@ def kick_down_door():
             monster_dm = 1
             monster_name = "the very skinny goblin"
             monster_attack()
+            if health <= 0:
+                print("the skinny goblin smiles with glee")
+                return()
             monster_hp = 7
             monster_dm = 3
             monster_name = "the tall lanky goblin who knows karate"
             monster_attack()
+            if health <= 0:
+                print("the lanky goblin shadowboxes on your corpse")
+                return()
         monster_hp = 50
         monster_dm = 1
         monster_name = "the goblin king"
@@ -117,9 +124,41 @@ def kick_down_door():
         monster_dm = 4
         monster_name = "the red dragon"
         monster_attack()
+        if health <= 0:
+            return ()
         print("The dragon releases out a thunderous roar")
         monster_hp = 30
         monster_dm = 5
+        monster_attack()
+        looting()
+        looting()
+    elif encounter == 13:
+        print("COMBAT!")
+        monster_hp = 30
+        monster_dm = 3
+        monster_name = "the lich"
+        monster_attack()
+        if health <= 0:
+            print("The lich revives you as an undead servant")
+            return ()
+        print("the lich backs away, sending his undead minions instead")
+        monster_hp = 20
+        monster_dm = 1
+        monster_name = "the zombie"
+        if health <= 0:
+            print("The lich revives you as an undead servant")
+            return ()
+        monster_attack()
+        monster_hp = 8
+        monster_dm = 3
+        monster_name = "the sceleton"
+        if health <= 0:
+            print("The lich revives you as an undead servant")
+            return ()
+        print("the lich returns to the battle, though he is still injured from earlier")
+        monster_hp = 20
+        monster_dm = 51
+        monster_name = "the wounded lich"
         monster_attack()
         looting()
         looting()
@@ -127,22 +166,22 @@ def kick_down_door():
         print("you find goku?")
         monster_name = "goku"
         if rock_has == 1 and spare_food == 1:
-            print("The magic rock seems to sap much of gokus power, and you give him some of your spare food.")
-            monster_hp = 45
-            monster_dm = 8
+            print("The magic rock seems to sap much of goku's power, and you give him some of your spare food.")
+            monster_hp = 60
+            monster_dm = 7
         elif rock_has == 1:
-            print("The magic rock seems to sap much of gokus power, can you win?")
+            print("The magic rock seems to sap much of goku's power, can you win?")
             monster_hp = 60
             monster_dm = 10
         elif spare_food == 1:
             print("You give goku some of your spare food, it still looks quite bleak though")
-            monster_hp = 85
+            monster_hp = 100
             monster_dm = 12
         else:
             monster_hp = 100
             monster_dm = 15
         monster_attack()
-        if health >= 0:
+        if health > 0:
             print("did you just kill goku? Uh you win I guess, nice job!")
         else:
             return()
@@ -317,3 +356,4 @@ while running == 1:
     else:
         encounter = 100
         kick_down_door()
+    running = int(input("continue? 1 for yes 2 for no"))

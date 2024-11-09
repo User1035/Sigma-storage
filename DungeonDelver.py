@@ -12,6 +12,7 @@ BOW: Final[int] = 1
 SWORD: Final[int] = 2
 AXE: Final[int] = 3
 
+
 def kick_down_door():
     # IF SPAM GO!
     global encounter, monster_name, monster_hp, monster_dm, rock_has, spare_food

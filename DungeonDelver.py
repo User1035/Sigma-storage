@@ -8,9 +8,10 @@ encounter = 0
 spare_food = 0
 monster_dm = 0
 
-BOW: Final[int] = 1
-SWORD: Final[int] = 2
-AXE: Final[int] = 3
+class WeaponClass:
+    BOW: Final[int] = 1
+    SWORD: Final[int] = 2
+    AXE: Final[int] = 3
 
 
 def kick_down_door():
@@ -313,6 +314,19 @@ def monster_attack():
 
 
 running = 1
+
+def describe_entering_dungeon():
+    match weapon:
+        case WeaponClass.BOW:
+            print("You enter the dungeon with 30 health and walk into the first room, bow gripped tight in your hand")
+        case WeaponClass.SWORD:
+            print("You enter the dungeon with 30 health and walk into the first room, your trusty blade held tight")
+        case WeaponClass.AXE:
+            print("You enter the dungeon with 30 health and walk into the first room, gripping the handle of your axe")
+        case _:
+            print("You enter the dungeon and with 30 health walk into the first room, shaking as you walk unarmed")
+
+
 while running == 1:
     monster_hp = 0
     ran_loot = 0
@@ -322,30 +336,26 @@ while running == 1:
     monster_dm = 0
     health = 30
     monster_name = 0
+
     weapon = int(input("please select your starting weapon, 1 for a bow, 2 for a sword, 3 for an axe"))
-# selects starting weapon, and is stored as an integer
-    if weapon == AXE:
+
+    # selects starting weapon, and is stored as an integer
+    if weapon == WeaponClass.AXE:
         weapon_dur = random.randint(4, 6)
         weapon_dam = 5
-    elif weapon == SWORD:
+    elif weapon == WeaponClass.SWORD:
         weapon_dur = random.randint(7, 9)
         weapon_dam = 4
-    elif weapon == BOW:
+    elif weapon == WeaponClass.BOW:
         weapon_dur = random.randint(2, 4)
         weapon_dam = 6
     else:   # what kind of weapon is this???
         weapon_dur = 0
         weapon_dam = 1
-# basic code that assigns base characteristics based on the weapon
-    if weapon == BOW:
-        print("You enter the dungeon with 30 health and walk into the first room, bow gripped tight in your hand")
-    elif weapon == SWORD:
-        print("You enter the dungeon with 30 health and walk into the first room, your trusty blade held tight")
-    elif weapon == AXE:
-        print("You enter the dungeon with 30 health and walk into the first room, gripping the handle of your axe")
-    else:
-        print("You enter the dungeon and with 30 health walk into the first room, shaking as you walk unarmed")
-# changing starting message to show what weapon you have picked
+
+    describe_entering_dungeon()
+
+    # changing starting message to show what weapon you have picked
     for x in range(5):
         encounter = encounter + random.randint(1, 3)
         kick_down_door()

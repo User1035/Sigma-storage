@@ -13,7 +13,7 @@ SWORD: Final[int] = 2
 AXE: Final[int] = 3
 
 def kick_down_door():
-    #IF SPAM GO!
+    # IF SPAM GO!
     global encounter, monster_name, monster_hp, monster_dm, rock_has, spare_food
     if encounter == 1:
         print("COMBAT!")
@@ -155,7 +155,7 @@ def looting():
     else:
         return()
     ran_loot = encounter + random.randint(1, 3)
-    ##give me liberty, give me fire, give me if statements, or I retire
+    # give me liberty, give me fire, give me if statements, or I retire
     if ran_loot == 2:
         print("you find a moldy piece of bread, you attempt to cut of the mold and heal 1 health")
         health = health + 1
@@ -283,7 +283,7 @@ while running == 1:
     health = 30
     monster_name = 0
     weapon = int(input("please select your starting weapon, 1 for a bow, 2 for a sword, 3 for an axe"))
-#selects starting weapon, and is stored as an integer
+# selects starting weapon, and is stored as an integer
     if weapon == AXE:
         weapon_dur = random.randint(4, 6)
         weapon_dam = 5
@@ -296,7 +296,7 @@ while running == 1:
     else:   # what kind of weapon is this???
         weapon_dur = 0
         weapon_dam = 1
-#basic code that assigns base characteristics based on the weapon
+# basic code that assigns base characteristics based on the weapon
     if weapon == BOW:
         print("You enter the dungeon with 30 health and walk into the first room, bow gripped tight in your hand")
     elif weapon == SWORD:
@@ -305,7 +305,7 @@ while running == 1:
         print("You enter the dungeon with 30 health and walk into the first room, gripping the handle of your axe")
     else:
         print("You enter the dungeon and with 30 health walk into the first room, shaking as you walk unarmed")
-#changing starting message to show what weapon you have picked
+# changing starting message to show what weapon you have picked
     for x in range(5):
         encounter = encounter + random.randint(1, 3)
         kick_down_door()

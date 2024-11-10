@@ -264,6 +264,14 @@ def looting():
         print("you find a pantry containing fresh food, you heal 20 and gain some spare food")
         character.heal(20)
         spare_food = spare_food + 1
+    elif ran_loot == 15:
+        alter = input("you find a blood alter, sacrifice health for damage (1) or for an unbreaking weapon (2)")
+        if alter == 1:
+            character.heal(-5)
+            character.weapon.enhance_damage(5)
+        elif alter == 2:
+            character.heal(-5)
+            character.weapon.enhance_durability(25)
     else:
         print("you find nothing")
 
@@ -342,14 +350,12 @@ while running == 1:
           " health and walk into the first room, " + character.weapon.active_description())
 
     # changing starting message to show what weapon you have picked
-    for x in range(5):
+    for x in range(6):
         encounter = encounter + random.randint(1, 3)
         kick_down_door()
         if character.is_dead():
             break
-    if character.is_dead():
-        running = int(input("continue? 1 for yes 2 for no"))
-    else:
+    if not character.is_dead():
         encounter = 100
         kick_down_door()
     running = int(input("continue? 1 for yes 2 for no"))

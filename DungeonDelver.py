@@ -18,7 +18,7 @@ class WeaponClass:
 
 def kick_down_door():
     # IF SPAM GO!
-    global encounter, monster_name, monster_hp, monster_dm, rock_has, spare_food
+    global encounter, monster_name, monster_hp, monster_dm, rock_has, spare_food, is_dead
     if encounter == 1:
         print("COMBAT!")
         monster_name = "the giant spider"
@@ -76,7 +76,11 @@ def kick_down_door():
         print("You encounter a strange man on a bridge")
         str(input("What is your name"))
         str(input("what is your quest"))
-        str(input("what is your favorite colour"))
+        fling = str(input("what is your favorite colour"))
+        if fling == "err":
+            print("you are sent flying off the edge of the bridge")
+            is_dead = True
+            return()
         print("Right, off you go")
         looting()
     elif encounter == 9:
@@ -364,7 +368,7 @@ while running == 1:
     for x in range(5):
         encounter = encounter + random.randint(1, 3)
         kick_down_door()
-        if health <= 0:
+        if is_dead:
             break
     if not is_dead:
         encounter = 100

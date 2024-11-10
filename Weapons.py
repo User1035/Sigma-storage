@@ -81,8 +81,8 @@ class Unarmed(Weapon):
 
 class Spear(Weapon):
     def __init__(self):
-        self.durability = random.randint(4, 8)
-        self.damage = 3
+        self.durability = random.randint(6, 10)
+        self.damage = 4
 
     def active_description(self):
         return "with your spear at the ready"

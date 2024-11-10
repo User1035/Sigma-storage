@@ -1,4 +1,6 @@
-import random, Weapons, Character
+import random
+import Weapons
+import Character
 
 monster_hp = 0
 ran_loot = 0
@@ -7,7 +9,6 @@ encounter = 0
 spare_food = 0
 monster_dm = 0
 is_dead = False
-
 
 
 def kick_down_door():
@@ -96,8 +97,9 @@ def kick_down_door():
         looting()
     elif encounter == 11:
         print("you enter a huge hall of goblins,")
-        if spare_food == 1:
+        if spare_food > 0:
             print("You give the goblin king your spare food. He chuckles and challenges you to a fight")
+            spare_food = spare_food - 1
         else:
             monster_hp = 5
             monster_dm = 1
@@ -166,18 +168,18 @@ def kick_down_door():
     else:
         print("you find goku?")
         monster_name = "goku"
-        if rock_has == 1 and spare_food == 1:
+        if rock_has == 1 and spare_food > 0:
             print("The magic rock seems to sap much of goku's power, and you give him some of your spare food.")
             monster_hp = 60
-            monster_dm = 7
+            monster_dm = 10 - spare_food
         elif rock_has == 1:
             print("The magic rock seems to sap much of goku's power, can you win?")
             monster_hp = 60
             monster_dm = 10
-        elif spare_food == 1:
+        elif spare_food > 0:
             print("You give goku some of your spare food, it still looks quite bleak though")
             monster_hp = 100
-            monster_dm = 12
+            monster_dm = 15 - spare_food
         else:
             monster_hp = 100
             monster_dm = 15
@@ -242,7 +244,7 @@ def looting():
     elif ran_loot == 11:
         print("you find a goblin feast, you heal 15 and gain some spare food")
         character.heal(15)
-        spare_food = 1
+        spare_food = spare_food + 1
     elif ran_loot == 12:
         print("you find an armoury, and take a side dagger boosting your damage")
         character.weapon.enhance_damage(2)
@@ -261,13 +263,13 @@ def looting():
     elif ran_loot == 15:
         print("you find a pantry containing fresh food, you heal 20 and gain some spare food")
         character.heal(20)
-        spare_food = 1
+        spare_food = spare_food + 1
     else:
         print("you find nothing")
 
 
 def monster_attack():
-    global monster_hp
+    global monster_hp, is_dead
     print("you encounter", monster_name)
     while monster_hp > 0 and character.is_alive():
         incoming = random.randint(-2, 4) + monster_dm
@@ -309,6 +311,7 @@ def monster_attack():
         print("Your dead")
         is_dead = True
         return()
+
 
 running = 1
 while running == 1:

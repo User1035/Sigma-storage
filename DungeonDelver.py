@@ -6,11 +6,13 @@ rock_has = 0
 encounter = 0
 spare_food = 0
 monster_dm = 0
+is_dead = False
+
 
 
 def kick_down_door():
     # IF SPAM GO!
-    global encounter, monster_name, monster_hp, monster_dm, rock_has, spare_food
+    global encounter, monster_name, monster_hp, monster_dm, rock_has, spare_food, is_dead
     if encounter == 1:
         print("COMBAT!")
         monster_name = "the giant spider"
@@ -60,7 +62,7 @@ def kick_down_door():
             monster_hp = 7
             monster_dm = 2
             monster_attack()
-            if character.health <= 0:
+            if character.is_dead():
                 print("you are eaten by the wolf pack")
                 break
         looting()
@@ -68,7 +70,11 @@ def kick_down_door():
         print("You encounter a strange man on a bridge")
         str(input("What is your name"))
         str(input("what is your quest"))
-        str(input("what is your favorite colour"))
+        fling = str(input("what is your favorite colour"))
+        if fling == "err":
+            print("you are sent flying off the edge of the bridge")
+            is_dead = True
+            return()
         print("Right, off you go")
         looting()
     elif encounter == 9:
@@ -301,6 +307,7 @@ def monster_attack():
         print("You win!")
     else:
         print("Your dead")
+        is_dead = True
         return()
 
 running = 1

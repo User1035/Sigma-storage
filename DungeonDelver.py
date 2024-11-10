@@ -7,6 +7,8 @@ rock_has = 0
 encounter = 0
 spare_food = 0
 monster_dm = 0
+is_dead = False
+
 
 class WeaponClass:
     BOW: Final[int] = 1
@@ -66,7 +68,7 @@ def kick_down_door():
             monster_hp = 7
             monster_dm = 2
             monster_attack()
-            if health <= 0:
+            if is_dead:
                 print("you are eaten by the wolf pack")
                 break
         looting()
@@ -103,14 +105,14 @@ def kick_down_door():
             monster_dm = 1
             monster_name = "the very skinny goblin"
             monster_attack()
-            if health <= 0:
+            if is_dead:
                 print("the skinny goblin smiles with glee")
                 return()
             monster_hp = 7
             monster_dm = 3
             monster_name = "the tall lanky goblin who knows karate"
             monster_attack()
-            if health <= 0:
+            if is_dead:
                 print("the lanky goblin shadowboxes on your corpse")
                 return()
         monster_hp = 50
@@ -125,7 +127,7 @@ def kick_down_door():
         monster_dm = 4
         monster_name = "the red dragon"
         monster_attack()
-        if health <= 0:
+        if is_dead:
             return ()
         print("The dragon releases out a thunderous roar")
         monster_hp = 30
@@ -139,7 +141,7 @@ def kick_down_door():
         monster_dm = 3
         monster_name = "the lich"
         monster_attack()
-        if health <= 0:
+        if is_dead:
             print("The lich revives you as an undead servant")
             return ()
         print("the lich backs away, sending his undead minions instead")
@@ -153,7 +155,7 @@ def kick_down_door():
         monster_hp = 8
         monster_dm = 3
         monster_name = "the sceleton"
-        if health <= 0:
+        if is_dead:
             print("The lich revives you as an undead servant")
             return ()
         print("the lich returns to the battle, though he is still injured from earlier")
@@ -182,7 +184,7 @@ def kick_down_door():
             monster_hp = 100
             monster_dm = 15
         monster_attack()
-        if health > 0:
+        if not is_dead:
             print("did you just kill goku? Uh you win I guess, nice job!")
         else:
             return()
@@ -191,7 +193,7 @@ def kick_down_door():
 
 def looting():
     global ran_loot, health, weapon_dur, rock_has, spare_food, weapon_dam
-    if health >= 0:
+    if not is_dead:
         print("You search the room")
     else:
         return()
@@ -267,7 +269,7 @@ def looting():
 
 
 def monster_attack():
-    global monster_hp, health, weapon_dam, weapon_dur
+    global monster_hp, health, weapon_dam, weapon_dur, is_dead
     print("you encounter", monster_name)
     while monster_hp > 0 and health > 0:
         incoming = random.randint(-2, 4) + monster_dm
@@ -310,10 +312,12 @@ def monster_attack():
         print("You win!")
     else:
         print("Your dead")
+        is_dead = True
         return()
 
 
 running = 1
+
 
 def describe_entering_dungeon():
     match weapon:
@@ -328,6 +332,7 @@ def describe_entering_dungeon():
 
 
 while running == 1:
+    is_dead = False
     monster_hp = 0
     ran_loot = 0
     rock_has = 0
@@ -361,9 +366,7 @@ while running == 1:
         kick_down_door()
         if health <= 0:
             break
-    if health <= 0:
-        running = int(input("continue? 1 for yes 2 for no"))
-    else:
+    if not is_dead:
         encounter = 100
         kick_down_door()
     running = int(input("continue? 1 for yes 2 for no"))

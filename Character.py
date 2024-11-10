@@ -2,8 +2,10 @@ import Weapons
 
 
 class Character:
-    health = 30
-    weapon = Weapons.Unarmed()
+
+    def __init__(self):
+        self.health = 30
+        self.weapon = Weapons.Unarmed()
 
     def injure(self, amount_of_damage):
         self.health = self.health - amount_of_damage

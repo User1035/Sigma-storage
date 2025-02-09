@@ -1,6 +1,7 @@
 import random
 import Weapons
 import Character
+import Monsters
 
 monster_hp = 0
 ran_loot = 0
@@ -130,8 +131,6 @@ def kick_down_door():
         if character.is_dead():
             return ()
         print("The dragon releases out a thunderous roar")
-        monster_hp = 30
-        monster_dm = 5
         monster_attack()
         looting()
         looting()

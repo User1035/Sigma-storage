@@ -3,67 +3,53 @@ import Weapons
 import Character
 import Monsters
 
-monster_hp = 0
+
 ran_loot = 0
 rock_has = 0
 encounter = 0
 spare_food = 0
-monster_dm = 0
 is_dead = False
 
 
 def kick_down_door():
     # IF SPAM GO!
-    global encounter, monster_name, monster_hp, monster_dm, rock_has, spare_food, is_dead
+    global encounter, monster_name, rock_has, spare_food, is_dead
     if encounter == 1:
         print("COMBAT!")
         monster_name = "the giant spider"
-        monster_hp = 4
-        monster_dm = 2
-        monster_attack()
+        monster_attack(4, 2)
         looting()
     elif encounter == 2:
         print("COMBAT!")
         monster_name = "the giant rat"
-        monster_hp = 8
-        monster_dm = 1
-        monster_attack()
+
+        monster_attack(8, 1)
         looting()
     elif encounter == 3:
         print("COMBAT!")
         monster_name = "the fat goblin"
-        monster_hp = 10
-        monster_dm = 1
-        monster_attack()
+        monster_attack(10, 1)
         looting()
     elif encounter == 4:
         print("COMBAT!")
         monster_name = "the cave bear"
-        monster_hp = 15
-        monster_dm = 3
-        monster_attack()
+        monster_attack(15, 3)
         looting()
     elif encounter == 5:
         print("COMBAT!")
         monster_name = "the crystal beast"
-        monster_hp = 20
-        monster_dm = 2
-        monster_attack()
+        monster_attack(20, 2)
         looting()
     elif encounter == 6:
         print("COMBAT!")
         monster_name = "the berserk goblin"
-        monster_hp = 12
-        monster_dm = 4
-        monster_attack()
+        monster_attack(12, 4)
         looting()
     elif encounter == 7:
         print("A wolf pack attacks you!")
         for p in range(3):
             monster_name = "a wolf"
-            monster_hp = 7
-            monster_dm = 2
-            monster_attack()
+            monster_attack(7, 2)
             if character.is_dead():
                 print("you are eaten by the wolf pack")
                 break
@@ -85,16 +71,12 @@ def kick_down_door():
         if rock_has == 1:
             print("A giant golem blocks your way, but it crumbles after seeing the enchanted stone")
         else:
-            monster_hp = 30
-            monster_dm = 4
-            monster_attack()
+            monster_attack(30, 4)
         looting()
     elif encounter == 10:
         print("COMBAT!")
         monster_name = "the uncomfortably large mole"
-        monster_hp = 16
-        monster_dm = 5
-        monster_attack()
+        monster_attack(16, 5)
         looting()
     elif encounter == 11:
         print("you enter a huge hall of goblins,")
@@ -102,66 +84,51 @@ def kick_down_door():
             print("You give the goblin king your spare food. He chuckles and challenges you to a fight")
             spare_food = spare_food - 1
         else:
-            monster_hp = 5
-            monster_dm = 1
             monster_name = "the very skinny goblin"
-            monster_attack()
+            monster_attack(5, 1)
             if character.is_dead():
                 print("the skinny goblin smiles with glee")
                 return()
-            monster_hp = 7
-            monster_dm = 3
             monster_name = "the tall lanky goblin who knows karate"
-            monster_attack()
+            monster_attack(7, 3)
             if character.is_dead():
                 print("the lanky goblin shadowboxes on your corpse")
                 return()
-        monster_hp = 50
-        monster_dm = 1
         monster_name = "the goblin king"
-        monster_attack()
+        monster_attack(50, 1)
         looting()
         looting()
     elif encounter == 12:
         print("COMBAT!")
-        monster_hp = 25
-        monster_dm = 4
         monster_name = "the red dragon"
-        monster_attack()
+        monster_attack(25, 4)
         if character.is_dead():
             return ()
         print("The dragon releases out a thunderous roar")
-        monster_attack()
+        monster_attack(25, 4)
         looting()
         looting()
     elif encounter == 13:
         print("COMBAT!")
-        monster_hp = 30
-        monster_dm = 3
         monster_name = "the lich"
-        monster_attack()
+        monster_attack(30, 3)
         if character.is_dead():
             print("The lich revives you as an undead servant")
             return ()
         print("the lich backs away, sending his undead minions instead")
-        monster_hp = 20
-        monster_dm = 1
         monster_name = "the zombie"
         if character.is_dead():
             print("The lich revives you as an undead servant")
             return ()
-        monster_attack()
-        monster_hp = 8
-        monster_dm = 3
+        monster_attack(20, 1)
         monster_name = "the sceleton"
         if character.is_dead():
             print("The lich revives you as an undead servant")
             return ()
+        monster_attack(8, 3)
         print("the lich returns to the battle, though he is still injured from earlier")
-        monster_hp = 20
-        monster_dm = 5
         monster_name = "the wounded lich"
-        monster_attack()
+        monster_attack(20, 5)
         looting()
         looting()
     else:
@@ -169,20 +136,20 @@ def kick_down_door():
         monster_name = "goku"
         if rock_has == 1 and spare_food > 0:
             print("The magic rock seems to sap much of goku's power, and you give him some of your spare food.")
-            monster_hp = 60
-            monster_dm = 10 - spare_food
+            goku_hp = 60
+            goku_dm = 10 - spare_food
         elif rock_has == 1:
             print("The magic rock seems to sap much of goku's power, can you win?")
-            monster_hp = 60
-            monster_dm = 10
+            goku_hp = 60
+            goku_dm = 10
         elif spare_food > 0:
             print("You give goku some of your spare food, it still looks quite bleak though")
-            monster_hp = 100
-            monster_dm = 15 - spare_food
+            goku_hp = 100
+            goku_dm = 15 - spare_food
         else:
-            monster_hp = 100
-            monster_dm = 15
-        monster_attack()
+            goku_hp = 100
+            goku_dm = 15
+        monster_attack(goku_hp, goku_dm)
         if character.is_alive():
             print("did you just kill goku? Uh you win I guess, nice job!")
         else:
@@ -197,7 +164,6 @@ def looting():
     else:
         return()
     ran_loot = encounter + random.randint(1, 3)
-    # give me liberty, give me fire, give me if statements, or I retire
     if ran_loot == 2:
         print("you find a moldy piece of bread, you attempt to cut of the mold and heal 1 health")
         character.heal(1)
@@ -275,8 +241,8 @@ def looting():
         print("you find nothing")
 
 
-def monster_attack():
-    global monster_hp, is_dead
+def monster_attack(monster_hp, monster_dm):
+    global is_dead
     print("you encounter", monster_name)
     while monster_hp > 0 and character.is_alive():
         incoming = random.randint(-2, 4) + monster_dm

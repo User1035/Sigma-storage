@@ -290,12 +290,10 @@ running = 1
 while running == 1:
 
     character = Character.Character()
-    monster_hp = 0
     ran_loot = 0
     rock_has = 0
     encounter = 0
     spare_food = 0
-    monster_dm = 0
     monster_name = 0
 
     weaponChoice = int(input("please select your starting weapon,"

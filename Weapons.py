@@ -14,6 +14,7 @@ class Weapon:
     def __init__(self):
         self.durability = 0
         self.damage = 0
+        self.evasion = 0
 
     def active_description(self):
         return ""
@@ -35,6 +36,7 @@ class Bow(Weapon):
     def __init__(self):
         self.durability = random.randint(2, 4)
         self.damage = 6
+        self.evasion = 4
 
     def active_description(self):
         return "bow gripped tight in your hand"
@@ -46,7 +48,8 @@ class Bow(Weapon):
 class Sword(Weapon):
     def __init__(self):
         self.durability = random.randint(7, 9)
-        self.damage = 4
+        self.damage = 5
+        self.evasion = 3
 
     def active_description(self):
         return "your trusty blade held tight"
@@ -57,8 +60,9 @@ class Sword(Weapon):
 
 class Axe(Weapon):
     def __init__(self):
-        self.durability = random.randint(4, 6)
-        self.damage = 5
+        self.durability = random.randint(7, 9)
+        self.damage = 6
+        self.evasion = 2
 
     def active_description(self):
         return "gripping the handle of your axe"
@@ -71,6 +75,7 @@ class Unarmed(Weapon):
     def __init__(self):
         self.durability = 0
         self.damage = 1
+        self.evasion = 6
 
     def active_description(self):
         return "shaking as you walk unarmed"
@@ -83,6 +88,7 @@ class Spear(Weapon):
     def __init__(self):
         self.durability = random.randint(6, 10)
         self.damage = 4
+        self.evasion = 4
 
     def active_description(self):
         return "with your spear at the ready"

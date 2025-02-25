@@ -15,32 +15,32 @@ def kick_down_door():
     global encounter, rock_has, is_dead
     if encounter == 1:
         print("COMBAT!")
-        monster_attack(4, 2, "the giant spider")
+        monster_attack(4, 3, "the giant spider", 3)
         looting()
     elif encounter == 2:
         print("COMBAT!")
-        monster_attack(8, 1, "the giant rat")
+        monster_attack(8, 2, "the giant rat", 3)
         looting()
     elif encounter == 3:
         print("COMBAT!")
-        monster_attack(10, 1, "the fat goblin")
+        monster_attack(10, 2, "the fat goblin", 3)
         looting()
     elif encounter == 4:
         print("COMBAT!")
-        monster_attack(15, 3, "the cave bear")
+        monster_attack(15, 4, "the cave bear", 3)
         looting()
     elif encounter == 5:
         print("COMBAT!")
-        monster_attack(20, 2, "the crystal beast")
+        monster_attack(20, 5, "the crystal beast", 4)
         looting()
     elif encounter == 6:
         print("COMBAT!")
-        monster_attack(12, 4, "the berserk goblin")
+        monster_attack(12, 6, "the berserk goblin", 4)
         looting()
     elif encounter == 7:
         print("A wolf pack attacks you!")
         for p in range(3):
-            monster_attack(7, 2, "a wolf")
+            monster_attack(7, 3, "a wolf", 3)
             if character.is_dead():
                 print("you are eaten by the wolf pack")
                 break
@@ -61,11 +61,11 @@ def kick_down_door():
         if rock_has == 1:
             print("A giant golem blocks your way, but it crumbles after seeing the enchanted stone")
         else:
-            monster_attack(30, 4, "the giant golem")
+            monster_attack(30, 5, "the giant golem", 4)
         looting()
     elif encounter == 10:
         print("COMBAT!")
-        monster_attack(16, 5, "the uncomfortably large mole")
+        monster_attack(16, 6, "the uncomfortably large mole", 5)
         looting()
     elif encounter == 11:
         print("you enter a huge hall of goblins,")
@@ -73,29 +73,29 @@ def kick_down_door():
             print("You give the goblin king your spare food. He chuckles and challenges you to a fight")
             Character.lose_food()
         else:
-            monster_attack(5, 1, "the very skinny goblin")
+            monster_attack(5, 2, "the very skinny goblin", 3)
             if character.is_dead():
                 print("the skinny goblin smiles with glee")
                 return()
-            monster_attack(7, 3, "the tall lanky goblin who knows karate")
+            monster_attack(7, 4, "the tall lanky goblin who knows karate", 3)
             if character.is_dead():
                 print("the lanky goblin shadowboxes on your corpse")
                 return()
-        monster_attack(50, 1, "the goblin king")
+        monster_attack(50, 2, "the goblin king", 3)
         looting()
         looting()
     elif encounter == 12:
         print("COMBAT!")
-        monster_attack(25, 4, "the red dragon")
+        monster_attack(25, 5, "the red dragon", 3)
         if character.is_dead():
             return ()
         print("The dragon releases out a thunderous roar")
-        monster_attack(25, 4, "the red dragon")
+        monster_attack(25, 5, "the red dragon", 4)
         looting()
         looting()
     elif encounter == 13:
         print("COMBAT!")
-        monster_attack(30, 3, "the lich")
+        monster_attack(30, 4, "the lich", 3)
         if character.is_dead():
             print("The lich revives you as an undead servant")
             return ()
@@ -103,13 +103,13 @@ def kick_down_door():
         if character.is_dead():
             print("The lich revives you as an undead servant")
             return ()
-        monster_attack(20, 1, "the zombie")
+        monster_attack(20, 2, "the zombie", 3)
         if character.is_dead():
             print("The lich revives you as an undead servant")
             return ()
-        monster_attack(8, 3, "the sceleton")
+        monster_attack(8, 4, "the sceleton", 3)
         print("the lich returns to the battle, though he is still injured from earlier")
-        monster_attack(20, 5, "the wounded lich")
+        monster_attack(20, 6, "the wounded lich", 4)
         looting()
         looting()
     else:
@@ -129,7 +129,7 @@ def kick_down_door():
         else:
             goku_hp = 100
             goku_dm = 15
-        monster_attack(goku_hp, goku_dm, "goku")
+        monster_attack(goku_hp, goku_dm, "goku", 6)
         if character.is_alive():
             print("did you just kill goku? Uh you win I guess, nice job!")
         else:
@@ -145,24 +145,33 @@ def looting():
         return()
     ran_loot = encounter + random.randint(1, 3)
     if ran_loot == 2:
-        print("you find a moldy piece of bread, you attempt to cut of the mold and heal 1 health")
+        print("you find a moldy piece of bread")
+        decision = int(input("do you dare risk eating it, with a chance of harm (1), or ignore the bread (2)"))
+        if decision == 1:
+            if random.randint(1, 10) == 10:
+                character.injure(1)
+                print("your throat seizes up, and take 1 damage")
+            else:
+                character.heal(3)
+                print("you ignore the foul taste, and choke down the bread healing 3 health")
+        else:
+            print("you choose to leave the moldy bread")
         character.heal(1)
     elif ran_loot == 3:
         print("you find some rats, you cook them and eat them healing 3 health.")
         character.heal(3)
+        y = random.randint(0, 15)
+        if y == 15:
+            looting()
     elif ran_loot == 4:
         print("you find a health potion, it heals you 8 health")
         character.heal(8)
     elif ran_loot == 5:
         print("you find a rusty buckler, that can take a parry instead of your weapon twice")
         character.weapon.enhance_durability(2)
-        y = random.randint(0, 2)
-        if y == 1:
-            print("you also find a boiled egg that heals you 3 health")
-            character.heal(3)
-        elif y == 2:
-            print("you also find a moldy piece of bread, you attempt to cut of the mold and heal 1 health")
-            character.heal(1)
+        y = random.randint(0, 15)
+        if y == 15:
+            looting()
     elif ran_loot == 6:
         print("you find a general potion, it heals you 5 health and repairs your weapon slightly")
         character.heal(5)
@@ -173,13 +182,9 @@ def looting():
     elif ran_loot == 8:
         print("you find an iron buckler, it can parry instead of your weapon 4 times")
         character.weapon.enhance_durability(4)
-        y = random.randint(0, 2)
-        if y == 1:
-            print("you also find a piece of bread that heals you 4 health")
-            character.heal(4)
-        elif y == 2:
-            print("you also find a steak that heals you 6 health")
-            character.heal(6)
+        y = random.randint(0, 15)
+        if y == 15:
+            looting()
     elif ran_loot == 9 or ran_loot == 10:
         if rock_has == 0:
             print("you find an enchanted rock, could come in handy")
@@ -187,9 +192,20 @@ def looting():
         print("your rock glows, you heal 12")
         character.heal(12)
     elif ran_loot == 11:
-        print("you find a goblin feast, you heal 15 and gain some spare food")
-        character.heal(15)
-        Character.gain_food(1)
+        print("you find a goblin feast, but most of the food seems spoiled. Much of it covers the walls and floors.")
+        eat_choice = int(input("Eat everything (1) Eat some now, but save some for later(2) Save everything (3)"))
+        if eat_choice == 1:
+            character.heal(30)
+            print("you heal 30")
+        elif eat_choice == 2:
+            character.heal(15)
+            character.gain_food(1)
+            print("you heal 15, and gain 1 spare food")
+        elif eat_choice == 3:
+            haracter.gain_food(2)
+            print("you gain 2 spare food")
+        else:
+            print("Filthy goblin food, you could never")
     elif ran_loot == 12:
         print("you find an armoury, and take a side dagger boosting your damage")
         character.weapon.enhance_damage(2)
@@ -221,18 +237,18 @@ def looting():
         print("you find nothing")
 
 
-def monster_attack(monster_hp, monster_dm, monster_name):
+def monster_attack(monster_hp, monster_dm, monster_name, range_dam):
     global is_dead
     print("you encounter", monster_name)
     while monster_hp > 0 and character.is_alive():
-        incoming = random.randint(-2, 4) + monster_dm
+        incoming = random.randint(-range_dam, range_dam) + monster_dm
         if incoming < 0:
             incoming = 0
         print(incoming, "damage incoming!")
         fight_act = input("1 for dodge, 2 for strike, 3 for parry")
         if fight_act == "1":
-            print("you do a dodge roll reducing the damage by 3")
-            incoming = incoming-3
+            print("you do a dodge roll reducing the damage by " + str(character.weapon.evasion))
+            incoming = incoming - character.weapon.evasion
             if incoming < 0:
                 incoming = 0
             character.injure(incoming)

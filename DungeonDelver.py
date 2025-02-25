@@ -7,13 +7,12 @@ import Monsters
 ran_loot = 0
 rock_has = 0
 encounter = 0
-spare_food = 0
 is_dead: bool = False
 
 
 def kick_down_door():
     # IF SPAM GO!
-    global encounter, rock_has, spare_food, is_dead
+    global encounter, rock_has, is_dead
     if encounter == 1:
         print("COMBAT!")
         monster_attack(4, 2, "the giant spider")
@@ -70,9 +69,9 @@ def kick_down_door():
         looting()
     elif encounter == 11:
         print("you enter a huge hall of goblins,")
-        if spare_food > 0:
+        if character.spare_food > 0:
             print("You give the goblin king your spare food. He chuckles and challenges you to a fight")
-            spare_food = spare_food - 1
+            Character.lose_food()
         else:
             monster_attack(5, 1, "the very skinny goblin")
             if character.is_dead():
@@ -115,18 +114,18 @@ def kick_down_door():
         looting()
     else:
         print("you find goku?")
-        if rock_has == 1 and spare_food > 0:
+        if rock_has == 1 and character.spare_food > 0:
             print("The magic rock seems to sap much of goku's power, and you give him some of your spare food.")
             goku_hp = 60
-            goku_dm = 10 - spare_food
+            goku_dm = 10 - character.spare_food
         elif rock_has == 1:
             print("The magic rock seems to sap much of goku's power, can you win?")
             goku_hp = 60
             goku_dm = 10
-        elif spare_food > 0:
+        elif character.spare_food > 0:
             print("You give goku some of your spare food, it still looks quite bleak though")
             goku_hp = 100
-            goku_dm = 15 - spare_food
+            goku_dm = 15 - character.spare_food
         else:
             goku_hp = 100
             goku_dm = 15
@@ -139,7 +138,7 @@ def kick_down_door():
 
 
 def looting():
-    global ran_loot, rock_has, spare_food
+    global ran_loot, rock_has
     if character.is_alive():
         print("You search the room")
     else:
@@ -190,7 +189,7 @@ def looting():
     elif ran_loot == 11:
         print("you find a goblin feast, you heal 15 and gain some spare food")
         character.heal(15)
-        spare_food = spare_food + 1
+        Character.gain_food(1)
     elif ran_loot == 12:
         print("you find an armoury, and take a side dagger boosting your damage")
         character.weapon.enhance_damage(2)
@@ -209,7 +208,7 @@ def looting():
     elif ran_loot == 15:
         print("you find a pantry containing fresh food, you heal 20 and gain some spare food")
         character.heal(20)
-        spare_food = spare_food + 2
+        Character.gain_food(2)
     elif ran_loot == 15:
         alter = input("you find a blood alter, sacrifice health for damage (1) or for an unbreaking weapon (2)")
         if alter == 1:
@@ -274,7 +273,6 @@ while running == 1:
     ran_loot = 0
     rock_has = 0
     encounter = 0
-    spare_food = 0
 
     weaponChoice = int(input("please select your starting weapon,"
                              " 1 for a bow, 2 for a sword, 3 for an axe, 4 for a spear"))
@@ -296,11 +294,11 @@ while running == 1:
     for x in range(6):
         encounter = encounter + random.randint(1, 3)
         kick_down_door()
-        if spare_food > 0:
+        if character.spare_food > 0:
             eat = int(input("eat 1 spare food for 10 extra health, yes (1) no (2)"))
             if eat == 1:
                 character.heal(10)
-                spare_food = spare_food - 1
+                Character.lose_food(1)
         if character.is_dead():
             break
     if not character.is_dead():

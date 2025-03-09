@@ -18,7 +18,6 @@ class GiantSpider(Monster):
         self.name = "the giant spider"
 
 
-
 class Rat(Monster):
     def __init__(self):
         self.monster_hp = 8
@@ -31,6 +30,7 @@ class FatGoblin(Monster):
         self.monster_hp = 8
         self.monster_dm = 1
         self.name = "the fat goblin"
+
 
 class CaveBear(Monster):
     def __init__(self):

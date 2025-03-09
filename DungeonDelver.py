@@ -14,27 +14,27 @@ def kick_down_door():
     # IF SPAM GO!
     global encounter, rock_has, is_dead
     if encounter == 1:
-        monster_attack(4, 3, "the giant spider", 3)
+        monster_attack(4, 3, "the giant spider")
         looting()
     elif encounter == 2:
-        monster_attack(8, 2, "the giant rat", 3)
+        monster_attack(8, 2, "the giant rat")
         looting()
     elif encounter == 3:
-        monster_attack(10, 2, "the fat goblin", 3)
+        monster_attack(10, 2, "the fat goblin")
         looting()
     elif encounter == 4:
-        monster_attack(15, 4, "the cave bear", 3)
+        monster_attack(15, 4, "the cave bear")
         looting()
     elif encounter == 5:
-        monster_attack(20, 5, "the crystal beast", 4)
+        monster_attack(20, 5, "the crystal beast")
         looting()
     elif encounter == 6:
-        monster_attack(12, 6, "the berserk goblin", 4)
+        monster_attack(12, 6, "the berserk goblin")
         looting()
     elif encounter == 7:
         print("A wolf pack attacks you!")
         for p in range(3):
-            monster_attack(7, 3, "a wolf", 3)
+            monster_attack(7, 3, "a wolf")
             if character.is_dead():
                 print("you are eaten by the wolf pack")
                 break
@@ -54,10 +54,10 @@ def kick_down_door():
         if rock_has == 1:
             print("A giant golem blocks your way, but it crumbles after seeing the enchanted stone")
         else:
-            monster_attack(30, 5, "the giant golem", 4)
+            monster_attack(30, 5, "the giant golem")
         looting()
     elif encounter == 10:
-        monster_attack(20, 6, "the uncomfortably large mole", 5)
+        monster_attack(20, 6, "the uncomfortably large mole")
         looting()
     elif encounter == 11:
         print("you enter a huge hall of goblins,")
@@ -65,27 +65,27 @@ def kick_down_door():
             print("You give the goblin king your spare food. He chuckles and challenges you to a fight")
             Character.lose_food()
         else:
-            monster_attack(5, 2, "the very skinny goblin", 3)
+            monster_attack(5, 2, "the very skinny goblin")
             if character.is_dead():
                 print("the skinny goblin smiles with glee")
                 return()
-            monster_attack(7, 4, "the tall lanky goblin who knows karate", 3)
+            monster_attack(7, 4, "the tall lanky goblin who knows karate")
             if character.is_dead():
                 print("the lanky goblin shadowboxes on your corpse")
                 return()
-        monster_attack(50, 2, "the goblin king", 3)
+        monster_attack(50, 2, "the goblin king")
         looting()
         looting()
     elif encounter == 12:
-        monster_attack(25, 5, "the red dragon", 3)
+        monster_attack(25, 5, "the red dragon")
         if character.is_dead():
             return ()
         print("The dragon releases out a thunderous roar")
-        monster_attack(25, 5, "the red dragon", 3)
+        monster_attack(25, 5, "the red dragon")
         looting()
         looting()
     elif encounter == 13:
-        monster_attack(25, 4, "the lich", 3)
+        monster_attack(25, 4, "the lich")
         if character.is_dead():
             print("The lich revives you as an undead servant")
             return ()
@@ -93,13 +93,13 @@ def kick_down_door():
         if character.is_dead():
             print("The lich revives you as an undead servant")
             return ()
-        monster_attack(20, 2, "the zombie", 3)
+        monster_attack(20, 2, "the zombie")
         if character.is_dead():
             print("The lich revives you as an undead servant")
             return ()
-        monster_attack(8, 4, "the sceleton", 3)
+        monster_attack(8, 4, "the sceleton")
         print("the lich returns to the battle, though he is still injured from earlier")
-        monster_attack(25, 4, "the lich", 3)
+        monster_attack(25, 4, "the lich")
         looting()
         looting()
     else:
@@ -119,7 +119,7 @@ def kick_down_door():
         else:
             goku_hp = 100
             goku_dm = 15
-        monster_attack(goku_hp, goku_dm, "goku", 6)
+        monster_attack(goku_hp, goku_dm, "goku")
         if character.is_alive():
             print("did you just kill goku? Uh you win I guess, nice job!")
         else:
@@ -227,11 +227,11 @@ def looting():
         print("you find nothing")
 
 
-def monster_attack(monster_hp, monster_dm, monster_name, range_dam):
+def monster_attack(monster_hp, monster_dm, monster_name):
     global is_dead
     print("you encounter", monster_name)
     while monster_hp > 0 and character.is_alive():
-        incoming = random.randint(-range_dam, range_dam) + monster_dm
+        incoming = int(round(random.uniform(0, 2) * monster_dm))
         if incoming < 0:
             incoming = 0
         print(incoming, "damage incoming!")

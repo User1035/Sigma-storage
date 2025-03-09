@@ -14,27 +14,27 @@ def kick_down_door():
     # IF SPAM GO!
     global encounter, rock_has, is_dead
     if encounter == 1:
-        monster_attack(4, 3, "the giant spider")
+        combat(Monsters.GiantSpider())
         looting()
     elif encounter == 2:
-        monster_attack(8, 2, "the giant rat")
+        combat(Monsters.Rat())
         looting()
     elif encounter == 3:
-        monster_attack(10, 2, "the fat goblin")
+        combat(Monsters.FatGoblin())
         looting()
     elif encounter == 4:
-        monster_attack(15, 4, "the cave bear")
+        combat(Monsters.CaveBear())
         looting()
     elif encounter == 5:
-        monster_attack(20, 5, "the crystal beast")
+        combat(Monsters.CrystalBeast())
         looting()
     elif encounter == 6:
-        monster_attack(12, 6, "the berserk goblin")
+        combat(Monsters.BerserkGoblin())
         looting()
     elif encounter == 7:
         print("A wolf pack attacks you!")
         for p in range(3):
-            monster_attack(7, 3, "a wolf")
+            combat(Monsters.Wolf())
             if character.is_dead():
                 print("you are eaten by the wolf pack")
                 break
@@ -54,10 +54,10 @@ def kick_down_door():
         if rock_has == 1:
             print("A giant golem blocks your way, but it crumbles after seeing the enchanted stone")
         else:
-            monster_attack(30, 5, "the giant golem")
+            combat(Monsters.GiantGolem())
         looting()
     elif encounter == 10:
-        monster_attack(20, 6, "the uncomfortably large mole")
+        combat(Monsters.LargeMole())
         looting()
     elif encounter == 11:
         print("you enter a huge hall of goblins,")
@@ -65,27 +65,27 @@ def kick_down_door():
             print("You give the goblin king your spare food. He chuckles and challenges you to a fight")
             Character.lose_food()
         else:
-            monster_attack(5, 2, "the very skinny goblin")
+            combat(Monsters.FatGoblin())
             if character.is_dead():
-                print("the skinny goblin smiles with glee")
+                print("The fat goblin hits a diabolical jig")
                 return()
-            monster_attack(7, 4, "the tall lanky goblin who knows karate")
+            combat(Monsters.BerserkGoblin())
             if character.is_dead():
                 print("the lanky goblin shadowboxes on your corpse")
                 return()
-        monster_attack(50, 2, "the goblin king")
+        combat(Monsters.GoblinKing())
         looting()
         looting()
     elif encounter == 12:
-        monster_attack(25, 5, "the red dragon")
+        combat(Monsters.RedDragon())
         if character.is_dead():
             return ()
         print("The dragon releases out a thunderous roar")
-        monster_attack(25, 5, "the red dragon")
+        combat(Monsters.RedDragon())
         looting()
         looting()
     elif encounter == 13:
-        monster_attack(25, 4, "the lich")
+        combat(Monsters.Lich())
         if character.is_dead():
             print("The lich revives you as an undead servant")
             return ()
@@ -93,38 +93,65 @@ def kick_down_door():
         if character.is_dead():
             print("The lich revives you as an undead servant")
             return ()
-        monster_attack(20, 2, "the zombie")
+        combat(Monsters.Zombie())
         if character.is_dead():
             print("The lich revives you as an undead servant")
             return ()
         monster_attack(8, 4, "the sceleton")
         print("the lich returns to the battle, though he is still injured from earlier")
-        monster_attack(25, 4, "the lich")
+        combat(Monsters.Lich())
         looting()
         looting()
     else:
         print("you find goku?")
-        if rock_has == 1 and character.spare_food > 0:
-            print("The magic rock seems to sap much of goku's power, and you give him some of your spare food.")
-            goku_hp = 60
-            goku_dm = 10 - character.spare_food
-        elif rock_has == 1:
-            print("The magic rock seems to sap much of goku's power, can you win?")
-            goku_hp = 60
-            goku_dm = 10
-        elif character.spare_food > 0:
-            print("You give goku some of your spare food, it still looks quite bleak though")
-            goku_hp = 100
-            goku_dm = 15 - character.spare_food
-        else:
-            goku_hp = 100
-            goku_dm = 15
-        monster_attack(goku_hp, goku_dm, "goku")
-        if character.is_alive():
-            print("did you just kill goku? Uh you win I guess, nice job!")
-        else:
-            return()
+        print("Good job, going to make this fight work on the new class system later, you win!")
         exit()
+
+
+def combat(monster):
+    monster_hp = monster.hp
+    global is_dead
+    print("you encounter", monster.name)
+    while monster_hp > 0 and character.is_alive():
+        incoming = int(round(random.uniform(0, 2) * monster.dm))
+        if incoming < 0:
+            incoming = 0
+        print(incoming, "damage incoming!")
+        fight_act = input("1 for dodge, 2 for strike, 3 for parry")
+        if fight_act == "1":
+            print("you do a dodge roll reducing the damage by " + str(character.weapon.evasion))
+            incoming = incoming - character.weapon.evasion
+            if incoming < 0:
+                incoming = 0
+            character.injure(incoming)
+        elif fight_act == "2":
+            print("you go to strike the enemy")
+            print("your damage is", character.weapon.damage)
+            monster_hp = monster_hp - character.weapon.damage
+            character.injure(incoming)
+        elif fight_act == "3":
+            print("You try to parry with your", character.weapon.name())
+
+            if isinstance(character.weapon, Weapons.Unarmed):
+                print("you try and parry with your fists, It has no effect")
+                character.injure(incoming)
+            else:
+                character.weapon.damaged(1)
+                if character.weapon.durability <= 0:
+                    print("you parry but your " + character.weapon.name() + " shatters!")
+                    character.weapon = Weapons.Unarmed()
+                else:
+                    print("you parry but your " + character.weapon.name() + " is damaged")
+                    print("your weapon is", character.weapon.durability, "hits away from being destroyed")
+        else:
+            print("you miss your opportunity to act")
+            character.injure(incoming)
+    if character.is_alive():
+        print("You win!")
+    else:
+        print("Your dead")
+        is_dead = True
+        return ()
 
 
 def looting():
@@ -192,7 +219,7 @@ def looting():
             character.gain_food(1)
             print("you heal 15, and gain 1 spare food")
         elif eat_choice == 3:
-            haracter.gain_food(2)
+            character.gain_food(2)
             print("you gain 2 spare food")
         else:
             print("Filthy goblin food, you could never")
@@ -225,51 +252,6 @@ def looting():
             character.weapon.enhance_durability(25)
     else:
         print("you find nothing")
-
-
-def monster_attack(monster_hp, monster_dm, monster_name):
-    global is_dead
-    print("you encounter", monster_name)
-    while monster_hp > 0 and character.is_alive():
-        incoming = int(round(random.uniform(0, 2) * monster_dm))
-        if incoming < 0:
-            incoming = 0
-        print(incoming, "damage incoming!")
-        fight_act = input("1 for dodge, 2 for strike, 3 for parry")
-        if fight_act == "1":
-            print("you do a dodge roll reducing the damage by " + str(character.weapon.evasion))
-            incoming = incoming - character.weapon.evasion
-            if incoming < 0:
-                incoming = 0
-            character.injure(incoming)
-        elif fight_act == "2":
-            print("you go to strike the enemy")
-            print("your damage is", character.weapon.damage)
-            monster_hp = monster_hp - character.weapon.damage
-            character.injure(incoming)
-        elif fight_act == "3":
-            print("You try to parry with your", character.weapon.name())
-
-            if isinstance(character.weapon, Weapons.Unarmed):
-                print("you try and parry with your fists, It has no effect")
-                character.injure(incoming)
-            else:
-                character.weapon.damaged(1)
-                if character.weapon.durability <= 0:
-                    print("you parry but your " + character.weapon.name() + " shatters!")
-                    character.weapon = Weapons.Unarmed()
-                else:
-                    print("you parry but your " + character.weapon.name() + " is damaged")
-                    print("your weapon is", character.weapon.durability, "hits away from being destroyed")
-        else:
-            print("you miss your opportunity to act")
-            character.injure(incoming)
-    if character.is_alive():
-        print("You win!")
-    else:
-        print("Your dead")
-        is_dead = True
-        return()
 
 
 running = 1

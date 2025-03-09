@@ -13,90 +13,90 @@ class Monster:
 
 class GiantSpider(Monster):
     def __init__(self):
-        self.monster_hp = 4
-        self.monster_dm = 3
+        self.hp = 4
+        self.dm = 3
         self.name = "the giant spider"
 
 
 class Rat(Monster):
     def __init__(self):
-        self.monster_hp = 8
-        self.monster_dm = 1
+        self.hp = 8
+        self.dm = 1
         self.name = "the giant rat"
 
 
 class FatGoblin(Monster):
     def __init__(self):
-        self.monster_hp = 8
-        self.monster_dm = 1
+        self.hp = 8
+        self.dm = 1
         self.name = "the fat goblin"
 
 
 class CaveBear(Monster):
     def __init__(self):
-        self.monster_hp = 15
-        self.monster_dm = 4
+        self.hp = 15
+        self.dm = 4
         self.name = "the cave bear"
 
 
 class CrystalBeast(Monster):
     def __init__(self):
-        self.monster_hp = 20
-        self.monster_dm = 5
+        self.hp = 20
+        self.dm = 5
         self.name = "the Crystal beast"
 
 
 class BerserkGoblin(Monster):
     def __init__(self):
-        self.monster_hp = 12
-        self.monster_dm = 6
+        self.hp = 12
+        self.dm = 6
         self.name = "the berserk goblin"
 
 
 class Wolf(Monster):
     def __init__(self):
-        self.monster_hp = 7
-        self.monster_dm = 3
+        self.hp = 7
+        self.dm = 3
         self.name = "the wolf"
 
 
 class GiantGolem(Monster):
     def __init__(self):
-        self.monster_hp = 30
-        self.monster_dm = 5
+        self.hp = 30
+        self.dm = 5
         self.name = "the giant golem"
 
 
 class LargeMole(Monster):
     def __init__(self):
-        self.monster_hp = 20
-        self.monster_dm = 6
+        self.hp = 20
+        self.dm = 6
         self.name = "the uncomfortably large mole"
 
 
 class GoblinKing(Monster):
     def __init__(self):
-        self.monster_hp = 50
-        self.monster_dm = 2
+        self.hp = 50
+        self.dm = 2
         self.name = "the goblin king"
 
 
 class RedDragon(Monster):
     def __init__(self):
-        self.monster_hp = 25
-        self.monster_dm = 5
+        self.hp = 25
+        self.dm = 5
         self.name = "the red dragon"
 
 
 class Lich(Monster):
     def __init__(self):
-        self.monster_hp = 25
-        self.monster_dm = 4
+        self.hp = 25
+        self.dm = 4
         self.name = "the lich"
 
 
 class Zombie(Monster):
     def __init__(self):
-        self.monster_hp = 20
-        self.monster_dm = 2
+        self.hp = 20
+        self.dm = 2
         self.name = "the zombie"
